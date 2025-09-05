@@ -200,7 +200,7 @@ def scrape_with_subprocess(filters):
                 scraping_progress["completed"] = True
                 # Set the default Google Sheets URL as fallback
                 if not scraping_progress["sheet_url"]:
-                    scraping_progress["sheet_url"] = "https://docs.google.com/spreadsheets/d/1Qi9aB8jDuN6524b9seAXpvOjwzNHvc3xxJJm-aLRA9k/edit?usp=sharing"
+                    scraping_progress["sheet_url"] = ""
             else:
                 # Try to read from latest CSV file as backup
                 try:
@@ -224,7 +224,7 @@ def scrape_with_subprocess(filters):
                         scraping_progress["completed"] = True
                         # Set the default Google Sheets URL as fallback
                         if not scraping_progress["sheet_url"]:
-                            scraping_progress["sheet_url"] = "https://docs.google.com/spreadsheets/d/1Qi9aB8jDuN6524b9seAXpvOjwzNHvc3xxJJm-aLRA9k/edit?usp=sharing"
+                            scraping_progress["sheet_url"] = ""
                     else:
                         scraping_progress["status"] = "completed"
                         scraping_progress["message"] = "Completed but no properties found"
@@ -295,3 +295,4 @@ if __name__ == '__main__':
     print("🌐 Starting web server...")
     print("📱 Open your browser and go to: http://localhost:5000")
     app.run(debug=True, host='0.0.0.0', port=5000)
+
