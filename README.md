@@ -1,5 +1,6 @@
-# 🏠 HomeHunt Data Collector
+![HomeHunt Data Collector ](https://socialify.git.ci/harivarshney/HomeHunt-Data-Collector/image?description=1&font=Rokkitt&language=1&name=1&owner=1&pattern=Floating+Cogs&stargazers=1&theme=Dark)
 
+# 🏠 HomeHunt Data Collector 
 A powerful web-based apartment scraping tool that extracts property listings from Apartments.com and automatically uploads the data to Google Sheets. Built with Python, Flask, and Selenium for seamless apartment hunting.
 
 ![Python](https://img.shields.io/badge/python-v3.7+-blue.svg)
@@ -249,6 +250,7 @@ If this project helps you find your perfect home, please consider giving it a st
 ---
 
 **Happy House Hunting! 🏡**
+
 
 
 
