@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏠 HomeHunt Data Collector</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .filters-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .filters-title {
+            color: #333;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .filter-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .filter-item:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .filter-item input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .filter-item label {
+            font-weight: 500;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .filter-item.checked {
+            border-color: #667eea;
+            background: #f0f3ff;
+        }
+
+        .scrape-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .scrape-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .scrape-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .progress-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            color: #333;
+            font-weight: 500;
+            margin: 10px 0;
+        }
+
+        .result-section {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            display: none;
+        }
+
+        .result-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .result-error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .sheet-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .sheet-link:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .scraping {
+            animation: pulse 2s infinite;
+        }
+
+        .property-item {
+            padding: 12px;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .property-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .current-property {
+            background: linear-gradient(135deg, #f0f3ff 0%, #e8f2ff 100%);
+            border: 2px solid #667eea;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 5px rgba(102, 126, 234, 0.5); }
+            to { box-shadow: 0 0 20px rgba(102, 126, 234, 0.8); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏠 HomeHunt Data Collector</h1>
+            <p>Professional Real Estate Data Scraping Tool</p>
+        </div>
+
+        <form id="scrapeForm">
+            <div class="filters-section">
+                <div class="filters-title">📋 Select Data Fields to Extract</div>
+                <div class="filter-grid">
+                    <div class="filter-item">
+                        <label>
+                            <input type="checkbox" name="filters" value="price" checked>
+                            <span class="emoji">💰</span>
+                            Price Information
+                        </label>
+                    </div>
+                    <div class="filter-item">
+                        <label>
+                            <input type="checkbox" name="filters" value="address" checked>
+                            <span class="emoji">📍</span>
+                            Property Address
+                        </label>
+                    </div>
+                    <div class="filter-item">
+                        <label>
+                            <input type="checkbox" name="filters" value="beds" checked>
+                            <span class="emoji">🛏️</span>
+                            Bedrooms Count
+                        </label>
+                    </div>
+                    <div class="filter-item">
+                        <label>
+                            <input type="checkbox" name="filters" value="baths" checked>
+                            <span class="emoji">🚿</span>
+                            Bathrooms Count
+                        </label>
+                    </div>
+                    <div class="filter-item">
+                        <label>
+                            <input type="checkbox" name="filters" value="url" checked>
+                            <span class="emoji">🔗</span>
+                            Property URL
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="scrape-button" id="scrapeBtn">
+                🚀 Start Data Collection
+            </button>
+        </form>
+
+        <div class="progress-section" id="progressSection">
+            <div class="progress-text" id="progressText">Initializing...</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div id="progressDetails">Preparing to scrape data...</div>
+            
+            <!-- Real-time property display -->
+            <div id="currentProperty" style="margin-top: 20px; padding: 15px; background: white; border-radius: 10px; display: none;">
+                <h4 style="color: #333; margin-bottom: 10px;">🏠 Currently Processing:</h4>
+                <div id="propertyInfo" style="color: #666; line-height: 1.5;"></div>
+            </div>
+            
+            <!-- Found properties list -->
+            <div id="foundProperties" style="margin-top: 20px; max-height: 300px; overflow-y: auto; display: none;">
+                <h4 style="color: #333; margin-bottom: 10px;">📋 Found Properties:</h4>
+                <div id="propertiesList"></div>
+            </div>
+        </div>
+
+        <div class="result-section" id="resultSection">
+            <div id="resultMessage"></div>
+        </div>
+    </div>
+
+    <script>
+        // Handle filter item clicks
+        document.querySelectorAll('.filter-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (e.target.type !== 'checkbox') {
+                    const checkbox = this.querySelector('input[type="checkbox"]');
+                    checkbox.checked = !checkbox.checked;
+                }
+                this.classList.toggle('checked', this.querySelector('input[type="checkbox"]').checked);
+            });
+        });
+
+        // Initialize filter states
+        document.querySelectorAll('.filter-item').forEach(item => {
+            item.classList.toggle('checked', item.querySelector('input[type="checkbox"]').checked);
+        });
+
+        // Handle form submission
+        document.getElementById('scrapeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const scrapeBtn = document.getElementById('scrapeBtn');
+            const progressSection = document.getElementById('progressSection');
+            const resultSection = document.getElementById('resultSection');
+            
+            // Disable button and show progress
+            scrapeBtn.disabled = true;
+            scrapeBtn.textContent = '🔄 Collecting Data...';
+            scrapeBtn.classList.add('scraping');
+            progressSection.style.display = 'block';
+            resultSection.style.display = 'none';
+            
+            // Start scraping
+            fetch('/scrape', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Start progress polling
+                    pollProgress();
+                } else {
+                    showError(data.error || 'Failed to start scraping');
+                }
+            })
+            .catch(error => {
+                showError('Network error: ' + error.message);
+            });
+        });
+
+        function pollProgress() {
+            fetch('/progress')
+            .then(response => response.json())
+            .then(data => {
+                updateProgress(data);
+                
+                if (data.status === 'running') {
+                    setTimeout(pollProgress, 1000); // Poll every second
+                } else {
+                    // Scraping finished
+                    const scrapeBtn = document.getElementById('scrapeBtn');
+                    scrapeBtn.disabled = false;
+                    scrapeBtn.textContent = '🚀 Start Data Collection';
+                    scrapeBtn.classList.remove('scraping');
+                    
+                    if (data.status === 'completed') {
+                        showSuccess(data.message, data.sheet_url);
+                    } else if (data.status === 'error') {
+                        showError(data.message);
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Progress polling error:', error);
+                setTimeout(pollProgress, 2000); // Retry after 2 seconds
+            });
+        }
+
+        function updateProgress(data) {
+            const progressText = document.getElementById('progressText');
+            const progressFill = document.getElementById('progressFill');
+            const progressDetails = document.getElementById('progressDetails');
+            const currentProperty = document.getElementById('currentProperty');
+            const propertyInfo = document.getElementById('propertyInfo');
+            const foundProperties = document.getElementById('foundProperties');
+            const propertiesList = document.getElementById('propertiesList');
+            
+            progressText.textContent = data.message || 'Processing...';
+            progressDetails.textContent = `Progress: ${data.current}/${data.total} properties`;
+            
+            if (data.total > 0) {
+                const percentage = (data.current / data.total) * 100;
+                progressFill.style.width = percentage + '%';
+            }
+            
+            // Show current property being processed
+            if (data.current_property) {
+                currentProperty.style.display = 'block';
+                propertyInfo.innerHTML = `
+                    <strong>Property #${data.current_property.number}</strong><br>
+                    💰 ${data.current_property.price}<br>
+                    📍 ${data.current_property.address}<br>
+                    🛏️ ${data.current_property.beds} | 🚿 ${data.current_property.baths}
+                `;
+            }
+            
+            // Show found properties list
+            if (data.properties && data.properties.length > 0) {
+                foundProperties.style.display = 'block';
+                propertiesList.innerHTML = '';
+                
+                data.properties.forEach((prop, index) => {
+                    const propDiv = document.createElement('div');
+                    propDiv.style.cssText = 'padding: 10px; margin: 5px 0; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;';
+                    propDiv.innerHTML = `
+                        <strong>Property ${index + 1}</strong><br>
+                        <small>💰 ${prop.Price} | 📍 ${prop.Address.substring(0, 40)}... | 🛏️ ${prop.Beds}</small>
+                    `;
+                    propertiesList.appendChild(propDiv);
+                });
+            }
+        }
+
+        function showSuccess(message, sheetUrl) {
+            const resultSection = document.getElementById('resultSection');
+            const resultMessage = document.getElementById('resultMessage');
+            
+            resultSection.className = 'result-section result-success';
+            resultSection.style.display = 'block';
+            
+            let content = `<strong>✅ ${message}</strong>`;
+            if (sheetUrl && !message.includes('rate limit') && !message.includes('CSV:')) {
+                content += `<br><a href="${sheetUrl}" target="_blank" class="sheet-link">📊 View Google Sheet</a>`;
+            } else if (message.includes('CSV:')) {
+                content += `<br><small>💾 Data saved locally due to upload limits</small>`;
+            }
+            
+            resultMessage.innerHTML = content;
+            
+            // Hide progress section
+            document.getElementById('progressSection').style.display = 'none';
+        }
+
+        function showError(message) {
+            const resultSection = document.getElementById('resultSection');
+            const resultMessage = document.getElementById('resultMessage');
+            const scrapeBtn = document.getElementById('scrapeBtn');
+            
+            resultSection.className = 'result-section result-error';
+            resultSection.style.display = 'block';
+            resultMessage.innerHTML = `<strong>❌ ${message}</strong>`;
+            
+            // Reset button
+            scrapeBtn.disabled = false;
+            scrapeBtn.textContent = '🚀 Start Data Collection';
+            scrapeBtn.classList.remove('scraping');
+            
+            // Hide progress section
+            document.getElementById('progressSection').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
