@@ -55,7 +55,7 @@
 ## Step 7: Share Your Google Sheet with the Service Account
 1. Open the credentials.json file and find the "client_email" field
 2. Copy the email address (looks like: homehunt-scraper-2025@...iam.gserviceaccount.com)
-3. Go to your Google Sheet: https://docs.google.com/spreadsheets/d/1Qi9aB8jDuN6524b9seAXpvOjwzNHvc3xxJJm-aLRA9k/edit?usp=sharing
+3. Go to your Google Sheet: 
 4. Click "Share" button (top right)
 5. Paste the service account email
 6. Set permission to "Editor"
@@ -82,3 +82,4 @@
 
 Total time: 5-10 minutes
 Difficulty: Easy (just clicking buttons)
+
