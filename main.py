@@ -33,7 +33,7 @@ def upload_to_google_sheets(df, sheet_url=None):
             if user_sheet_url:
                 sheet_url = user_sheet_url
             else:
-                sheet_url = "https://docs.google.com/spreadsheets/d/1Qi9aB8jDuN6524b9seAXpvOjwzNHvc3xxJJm-aLRA9k/edit?usp=sharing"
+                sheet_url = ""
         
         print("📊 Attempting to upload to your Google Sheet...")
         
@@ -375,7 +375,7 @@ def scrape_apartments_main():
                 
                 # Upload to Google Sheets
                 # Your Google Sheet URL
-                your_sheet_url = "https://docs.google.com/spreadsheets/d/1Qi9aB8jDuN6524b9seAXpvOjwzNHvc3xxJJm-aLRA9k/edit?usp=sharing"
+                your_sheet_url = ""
                 
                 print("\n📊 Uploading to your Google Sheet...")
                 sheet_success = upload_to_google_sheets(df, your_sheet_url)
@@ -402,3 +402,4 @@ def scrape_apartments_main():
 
 if __name__ == "__main__":
     scrape_apartments_main()
+
