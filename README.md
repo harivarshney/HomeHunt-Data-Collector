@@ -234,26 +234,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Google Sheets API** - For seamless data integration
 - **Apartments.com** - For providing property listing data
 
-## 📧 Support
-
-If you encounter any issues or have questions:
-
-1. **Check the troubleshooting section above**
-2. **Search existing issues** on GitHub
-3. **Create a new issue** with detailed information:
-   - Operating system and Python version
-   - Complete error message
-   - Steps to reproduce the problem
-
-## 🔄 Updates & Roadmap
-
-### Recent Updates
-- ✅ Added web interface
-- ✅ Real-time progress tracking
-- ✅ Unicode error handling
-- ✅ Google Sheets integration
-- ✅ CSV backup functionality
-
 ### Planned Features
 - 🔄 Multiple property websites support
 - 🔄 Advanced filtering options
@@ -270,6 +250,7 @@ If this project helps you find your perfect home, please consider giving it a st
 
 **Happy House Hunting! 🏡**
 
-*Made with ❤️ for apartment hunters everywhere*
+
+
 
 
