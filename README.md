@@ -24,8 +24,7 @@ A powerful web-based apartment scraping tool that extracts property listings fro
 The clean, modern web interface makes apartment hunting effortless:
 
 #### Main Interface - Data Field Selection
-![Main Interface](<img width="1905" height="1192" alt="Image" src="https://github.com/user-attachments/assets/8edfdcdb-ea15-4e2b-bb29-f2fa8b4c2839" />)
-
+![Main Interface]<img width="1916" height="1090" alt="Image" src="https://github.com/user-attachments/assets/869c6858-2920-4473-b793-89c73cf3ae7e" />
 **Features shown:**
 - 🏠 **Professional branding** with house icon and clean typography
 - 📋 **Data Field Selection** with intuitive checkboxes:
@@ -38,7 +37,8 @@ The clean, modern web interface makes apartment hunting effortless:
 - ▶️ **Prominent "START DATA COLLECTION" button** for easy access
 
 #### Success State - Results Display  
-![Results Display](screenshots/results-display.png)
+![Results Display]<img width="1905" height="1192" alt="Image" src="https://github.com/user-attachments/assets/8edfdcdb-ea15-4e2b-bb29-f2fa8b4c2839" />
+
 
 **Features shown:**
 - ✅ **Success notification** with clear status message
@@ -271,4 +271,5 @@ If this project helps you find your perfect home, please consider giving it a st
 **Happy House Hunting! 🏡**
 
 *Made with ❤️ for apartment hunters everywhere*
+
 
