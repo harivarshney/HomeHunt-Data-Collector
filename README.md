@@ -41,6 +41,10 @@ The clean, modern web interface makes apartment hunting effortless:
 ![Results Display]<img width="1905" height="1192" alt="Image" src="https://github.com/user-attachments/assets/8edfdcdb-ea15-4e2b-bb29-f2fa8b4c2839" />
 
 
+### Video 
+[![Watch the video](https://youtu.be/xMhHWMEVbPw?si=oZIfgg8Lz6E58urT)
+
+
 **Features shown:**
 - ✅ **Success notification** with clear status message
 - 📊 **Property count display**: "Found 15 properties (loaded from CSV)"
@@ -250,6 +254,7 @@ If this project helps you find your perfect home, please consider giving it a st
 ---
 
 **Happy House Hunting! 🏡**
+
 
 
 
